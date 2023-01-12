@@ -14,67 +14,83 @@ const generateHTML = require("./src/generateHTML");
 const teamMembersArray = [];
 
 //Array of managerQuestions//
-const managerQuestions = [
-  {
-    //Manager Name//
-    type: "input",
-    name: "managerName",
-    message: "What is your name? (Required)",
-    validate: (nameInput) => {
-      if (nameInput) {
-        return true;
-      } else {
-        console.log("Enter the manager's name!");
-        return false;
-      }
-    },
-  },
-  {
-    //Manager ID//
-    type: "input",
-    name: "managerEmployeeId",
-    message: "Enter your Employee ID",
-    validate: (nameInput) => {
-      if (isNaN(nameInput)) {
-        console.log("That is not a manager's ID!");
-        return false;
-      } else {
-        return true;
-      }
-    },
-  },
-  {
-    //Manager Email//
-    type: "input",
-    name: "managerEmail",
-    message: "Enter your Email",
-    validate: (managerEmail) => {
-      valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-        managerEmail
+const managerQuestions = () => {
+  return inquirer
+    .prompt([
+      {
+        //Manager Name//
+        type: "input",
+        name: "managerName",
+        message: "What is your name? (Required)",
+        validate: (nameInput) => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log("Enter the manager's name!");
+            return false;
+          }
+        },
+      },
+      {
+        //Manager ID//
+        type: "input",
+        name: "managerEmployeeId",
+        message: "Enter your Employee ID",
+        validate: (nameInput) => {
+          if (isNaN(nameInput)) {
+            console.log("That is not a manager's ID!");
+            return false;
+          } else {
+            return true;
+          }
+        },
+      },
+      {
+        //Manager Email//
+        type: "input",
+        name: "managerEmail",
+        message: "Enter your Email",
+        validate: (managerEmail) => {
+          valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+            managerEmail
+          );
+          if (valid) {
+            return true;
+          } else {
+            console.log("You need to enter an email!");
+            return false;
+          }
+        },
+      },
+      {
+        //Office Number//
+        type: "input",
+        name: "managerOfficeNumber",
+        message: "Enter your office number",
+        validate: (nameInput) => {
+          if (isNaN(nameInput)) {
+            console.log("You need to enter the office number!");
+            return false;
+          } else {
+            return true;
+          }
+        },
+      },
+    ])
+    .then((managerInput) => {
+      const { managerName, managerEmployeeId, email, officeNumber } =
+        managerInput;
+      const manager = new Manager(
+        managerName,
+        managerEmployeeId,
+        email,
+        officeNumber
       );
-      if (valid) {
-        return true;
-      } else {
-        console.log("You need to enter an email!");
-        return false;
-      }
-    },
-  },
-  {
-    //Office Number//
-    type: "input",
-    name: "managerOfficeNumber",
-    message: "Enter your office number",
-    validate: (nameInput) => {
-      if (isNaN(nameInput)) {
-        console.log("You need to enter the office number!");
-        return false;
-      } else {
-        return true;
-      }
-    },
-  },
-];
+
+      teamMembersArray.push(manager);
+      console.log(manager);
+    });
+};
 
 //Array of engineerQuestions//
 const engineerQuestions = [
