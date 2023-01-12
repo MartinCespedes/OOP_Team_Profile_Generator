@@ -149,12 +149,53 @@ const internQuestions = [
 ];
 
 //Prompt to add new Employee//
-const addEmployeeQuestions = [
-  {
-    //Employee List Questions//
-    type: "list",
-    name: "addEmployeeQuestions",
-    message: "To add employee select one of these options:",
-    choices: ["Add an Engineer", "Add an Intern", "Finish and exit"],
-  },
-];
+const addEmployeeQuestions = () => {
+  console.log(`
+  =============================
+  Adding Employees To The Team
+  =============================
+  `);
+
+  return inquirer
+    .prompt([
+      {
+        //Employee List Questions//
+        type: "list",
+        name: "addEmployeeQuestions",
+        message: "To add employee select one of these options:",
+        choices: ["Add an Engineer", "Add an Intern", "Finish and exit"],
+      },
+    ])
+    .then((employeeData) => {
+      //DATA for Employees//
+
+      let {
+        name,
+        engineerEmail,
+        internEmail,
+        role,
+        gitHubUsername,
+        education,
+        confirmAddEmployee,
+      } = employeeData;
+      let employee;
+
+      if (role === "Engineer") {
+        employee = new Engineer(name, id, engineerEmail, gitHubUsername);
+
+        console.log(employee);
+      } else if (role === "Intern") {
+        employee = new Intern(name, id, internEmail, education);
+
+        console.log(employee);
+      }
+
+      teamMembersArray.push(employee);
+
+      if (confirmAddEmployee) {
+        return addEmployeeQuestions(teamMembersArray);
+      } else {
+        return teamMembersArray;
+      }
+    });
+};
