@@ -34,3 +34,30 @@ const managerQuestions = [
     message: "Enter your office number",
   },
 ];
+
+const engineerQuestions = [
+  {
+    //Engineer Name//
+    name: "engineerName",
+    message: "Enter the Engineer's name?",
+    type: "input",
+  },
+  {
+    //Engineer ID//
+    name: "engineerId",
+    message: "Enter the Engineer's Employee ID?",
+    type: "input",
+  },
+  {
+    //Engineer Email//
+    name: "engineerEmail",
+    message: "Enter the Engineer's email address",
+    type: "input",
+  },
+  {
+    //Engineer GitHub Username//
+    name: "engineerGitHub",
+    message: "Enter the Engineer's GitHub username",
+    type: "input",
+  },
+];
