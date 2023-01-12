@@ -1,40 +1,82 @@
+//Node Modules//
 const inquirer = require("inquirer");
 const fs = require("fs");
+
+//Team Profiles//
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 const Manager = require("./lib/manager");
-const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html");
 
+//Generate HTML//
+const generateHTML = require("./src/generateHTML");
+
+//Array of Team Members//
 const teamMembersArray = [];
 
+//Array of managerQuestions//
 const managerQuestions = [
   {
     //Manager Name//
     type: "input",
     name: "managerName",
     message: "What is your name? (Required)",
+    validate: (nameInput) => {
+      if (nameInput) {
+        return true;
+      } else {
+        console.log("Enter the manager's name!");
+        return false;
+      }
+    },
   },
   {
     //Manager ID//
     type: "input",
     name: "managerEmployeeId",
     message: "Enter your Employee ID",
+    validate: (nameInput) => {
+      if (isNaN(nameInput)) {
+        console.log("That is not a manager's ID!");
+        return false;
+      } else {
+        return true;
+      }
+    },
   },
   {
     //Manager Email//
     type: "input",
     name: "managerEmail",
     message: "Enter your Email",
+    validate: (managerEmail) => {
+      valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+        managerEmail
+      );
+      if (valid) {
+        return true;
+      } else {
+        console.log("You need to enter an email!");
+        return false;
+      }
+    },
   },
   {
     //Office Number//
     type: "input",
     name: "managerOfficeNumber",
     message: "Enter your office number",
+    validate: (nameInput) => {
+      if (isNaN(nameInput)) {
+        console.log("You need to enter the office number!");
+        return false;
+      } else {
+        return true;
+      }
+    },
   },
 ];
 
+//Array of engineerQuestions//
 const engineerQuestions = [
   {
     //Engineer Name//
@@ -62,6 +104,7 @@ const engineerQuestions = [
   },
 ];
 
+//Array of internQuestions//
 const internQuestions = [
   {
     //Intern Name//
@@ -89,9 +132,10 @@ const internQuestions = [
   },
 ];
 
+//Prompt to add new Employee//
 const addEmployeeQuestions = [
   {
-    //select from these options
+    //Employee List Questions//
     type: "list",
     name: "addEmployeeQuestions",
     message: "To add employee select one of these options:",
