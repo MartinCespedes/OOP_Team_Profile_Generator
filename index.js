@@ -199,3 +199,29 @@ const addEmployeeQuestions = () => {
       }
     });
 };
+
+//Generate HTML page file using file system//
+const writeFile = (data) => {
+  fs.writeFile("", data, (err) => {
+    if (err) {
+      console.log(err);
+      return;
+    } else {
+      console.log(
+        "Your team profile has been successfully created! Check by going to your index.html"
+      );
+    }
+  });
+};
+
+managerQuestions()
+  .then(addEmployee)
+  .then((teamMembersArray) => {
+    return generateHTML(teamMembersArray);
+  })
+  .then((pageHTML) => {
+    return writeFile(pageHTML);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
