@@ -38,26 +38,53 @@ const managerQuestions = [
 const engineerQuestions = [
   {
     //Engineer Name//
-    name: "engineerName",
-    message: "Enter the Engineer's name?",
     type: "input",
+    name: "engineerName",
+    message: "Enter the Engineer's name",
   },
   {
     //Engineer ID//
-    name: "engineerId",
-    message: "Enter the Engineer's Employee ID?",
     type: "input",
+    name: "engineerId",
+    message: "Enter the Engineer's Employee ID",
   },
   {
     //Engineer Email//
+    type: "input",
     name: "engineerEmail",
     message: "Enter the Engineer's email address",
-    type: "input",
   },
   {
     //Engineer GitHub Username//
+    type: "input",
     name: "engineerGitHub",
     message: "Enter the Engineer's GitHub username",
+  },
+];
+
+const internQuestions = [
+  {
+    //Intern Name//
     type: "input",
+    name: "internName",
+    message: "Enter the Intern's name",
+  },
+  {
+    //Intern Id//
+    type: "input",
+    name: "internId",
+    message: "Enter Intern's Employee ID",
+  },
+  {
+    //Intern Email//
+    type: "input",
+    name: "internEmail",
+    message: "Enter Intern's email address",
+  },
+  {
+    //Intern Education//
+    type: "input",
+    name: "internEducation",
+    message: "Enter Intern's education",
   },
 ];
