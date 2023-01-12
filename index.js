@@ -88,3 +88,13 @@ const internQuestions = [
     message: "Enter Intern's education",
   },
 ];
+
+const addEmployeeQuestions = [
+  {
+    //select from these options
+    type: "list",
+    name: "addEmployeeQuestions",
+    message: "To add employee select one of these options:",
+    choices: ["Add an Engineer", "Add an Intern", "Finish and exit"],
+  },
+];
