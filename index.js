@@ -7,11 +7,14 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
-//Generate HTML//
-const generateHTML = require("./src/generateHTML");
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
+
+const render = require("./lib/htmlRenderer");
 
 //Array of Adding Employees to the Team //
 const addEmployeeArray = [];
+
 
 // Manager Prompt Questions//
 const addManager = () => {
@@ -95,55 +98,37 @@ const addEmployeeQuestions = () => {
         type: "list",
         name: "role",
         message: "To add employee select one of these options:",
-        choices: ["Add an Engineer", "Add an Intern"],
+        choices: ["Add an Engineer", "Add an Intern" ] 
       },
       {
         //Engineer Name//
         type: "input",
-        name: "engineerName",
-        message: "Enter the Engineer's name",
+        name: "name",
+        message: "Enter the Employee's name",
       },
       {
         //Engineer ID//
         type: "input",
         name: "ID",
-        message: "Enter the Engineer's Employee ID",
+        message: "Enter the Employee's ID",
       },
       {
         //Engineer Email//
         type: "input",
-        name: "engineerEmail",
-        message: "Enter the Engineer's email address",
+        name: "email",
+        message: "Enter the Employee's email address",
       },
       {
         //Engineer GitHub Username//
         type: "input",
-        when: (input) => input.role === "Engineer",
+        when: (input) => input.role === "Add an Engineer",
         name: "engineerGitHub",
         message: "Enter the Engineer's GitHub username",
       },
       {
-        //Intern Name//
-        type: "input",
-        name: "internName",
-        message: "Enter the Intern's name",
-      },
-      {
-        //Intern Id//
-        type: "input",
-        name: "ID",
-        message: "Enter Intern's Employee ID",
-      },
-      {
-        //Intern Email//
-        type: "input",
-        name: "internEmail",
-        message: "Enter Intern's email address",
-      },
-      {
         //Intern Education//
         type: "input",
-        when: (input) => input.role === "Intern",
+        when: (input) => input.role === "Add Intern",
         name: "internEducation",
         message: "Enter Intern's education",
       },
@@ -158,10 +143,9 @@ const addEmployeeQuestions = () => {
       //DATA for Employees//
 
       let {
-        engineerName,
-        engineerEmail,
-        internName,
-        internEmail,
+        name,
+        email,
+        ID,
         addEmployeeQuestions,
         gitHubUsername,
         education,
@@ -169,23 +153,23 @@ const addEmployeeQuestions = () => {
       } = employeeData;
       let employee;
 
-      if (role === "Engineer") {
+      if (role === "Add an Engineer") {
         employee = new Engineer(
-          engineerName,
+          name,
           ID,
-          engineerEmail,
+          email,
           gitHubUsername
         );
 
         console.log(employee);
-      } else if (role === "Intern") {
-        employee = new Intern(internName, ID, internEmail, education);
+      } else if (role === "Add an Intern") {
+        employee = new Intern(name, ID, email, education);
 
         console.log(employee);
       }
       addEmployeeArray.push(employee);
 
-      if (addMore) {
+      if (confirm.addMore) {
         return addEmployeeQuestions(addEmployeeArray);
       } else {
         return addEmployeeArray;
