@@ -1,6 +1,6 @@
 //Node Modules//
 const inquirer = require("inquirer");
-const fs = require("fs");
+const fs = require("fs/promises");
 
 //Team Profiles//
 const Engineer = require("./lib/Engineer");
@@ -30,7 +30,7 @@ const writeFile = (data) => {
 // Manager Prompt Questions//
 const inquirerObj = {
   addManager: function () {
-    return inquirer
+    inquirer
       .prompt([
         {
           type: "input",
@@ -87,7 +87,6 @@ const inquirerObj = {
         },
       ])
       .then((managerInput) => {
-        console.log(generateHTML);
         const { name, ID, email, officeNumber } = managerInput;
         const manager = new Manager(name, ID, email, officeNumber);
 
@@ -105,7 +104,7 @@ const inquirerObj = {
     ================================
     `);
 
-    return inquirer
+    inquirer
       .prompt([
         {
           //Employee List Questions//
@@ -190,7 +189,7 @@ const inquirerObj = {
   promiseChain: function (array) {
     generateHTML(array) //promise
       .then((pageHTML) => {
-        return writeFile(pageHTML); //promise?
+        writeFile(pageHTML); //promise?
       })
       .catch((err) => {
         console.log(err);

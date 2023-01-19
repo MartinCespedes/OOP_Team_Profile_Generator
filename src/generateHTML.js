@@ -1,5 +1,21 @@
 //Create Manager Card//
 
+const generateBaseHTML = (content) => {
+  return ` <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+  </head>
+  <body>
+     ${content} 
+  </body>
+  </html>
+    `;
+};
+
 const generateManager = function (manager) {
   return ` <div class="col-4 mt-4">
     <div class="card h-100">
@@ -55,9 +71,9 @@ const generateIntern = function (intern) {
     `;
 };
 
-const generateHTML = function (data) {
+const generateHTML = async (data) => {
   // array for cards
-  pageArray = [];
+  const pageArray = [];
 
   for (let i = 0; i < data.length; i++) {
     const employee = data[i];
@@ -84,7 +100,8 @@ const generateHTML = function (data) {
       pageArray.push(internCard);
     }
   }
-  return pageArray.join("");
+
+  return generateBaseHTML(pageArray.join(""));
 };
 
 module.exports = generateHTML;
